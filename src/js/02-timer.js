@@ -5,13 +5,21 @@ const refs = {
   dateInput: document.getElementById(`datetime-picker`),
   startButton: document.querySelector(`[data-start]`),
 };
+refs.startButton.setAttribute(`disabled`, true);
+let deadLine;
 
-const fp = flatpickr(refs.dateInput, {
+const fp = flatpickr(`input[type = 'text']`, {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    deadLine = selectedDates[0];
+    const nowDate = new Date();
+    if (deadLine.getTime() > nowDate.getTime()) {
+      refs.startButton.removeAttribute(`disabled`, true);
+    } else {
+      window.alert('Please choose a date in the future');
+    }
   },
 });
