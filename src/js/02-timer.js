@@ -7,6 +7,8 @@ const refs = {
 };
 refs.startButton.setAttribute(`disabled`, true);
 let deadLine;
+let nowDate;
+let ms;
 
 const fp = flatpickr(`input[type = 'text']`, {
   enableTime: true,
@@ -15,7 +17,7 @@ const fp = flatpickr(`input[type = 'text']`, {
   minuteIncrement: 1,
   onClose(selectedDates) {
     deadLine = selectedDates[0];
-    const nowDate = new Date();
+    nowDate = new Date();
     if (deadLine.getTime() > nowDate.getTime()) {
       refs.startButton.removeAttribute(`disabled`, true);
     } else {
@@ -23,3 +25,18 @@ const fp = flatpickr(`input[type = 'text']`, {
     }
   },
 });
+
+refs.startButton.addEventListener(`click`, onStart);
+let id;
+function onStart() {
+  id = setInterval(delta, 1000);
+}
+
+function delta() {
+  ms = deadLine.getTime() - new Date().getTime();
+  if (ms >= 0) {
+    console.log(ms);
+  } else {
+    clearInterval(id);
+  }
+}
