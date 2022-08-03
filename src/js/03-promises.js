@@ -35,7 +35,7 @@ inputDelayStep = event.target.value;
 function onSubmit(event) {
   event.preventDefault()
   for (let i = 1; i <= inputAmount; i += 1) {
-    createPromise()
+    createPromise(i, inputDelayStep)
   }
 }
 
@@ -60,5 +60,6 @@ function createPromise(position, delay) {
   } else {
     // Reject
   }
+  Notiflix.Notify.info(`position: ${position} delay: ${delay} `);
   
 }
