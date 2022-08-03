@@ -16,20 +16,17 @@ refs.btn.addEventListener(`click`, onSubmit)
 
 refs.amount.addEventListener(`input`, (event) => {
 inputAmount = Number(event.target.value);
-  // console.log(inputAmount);
-  return inputAmount
+    return inputAmount
 })
 
 refs.firstDelay.addEventListener(`input`, (event) => {
 inputFirstDelay = Number(event.target.value);
-  
-  return inputFirstDelay
+    return inputFirstDelay
 })
 
 refs.delayStep.addEventListener(`input`, (event) => {
 inputDelayStep = Number(event.target.value);
-  // console.log(inputDelayStep);
-  return inputDelayStep
+    return inputDelayStep
 })
 
 
@@ -61,26 +58,6 @@ function onSubmit(event) {
 }
 
 
-
-
-
-
-
-
-
-
-
-// createPromise(2, 1500)
-  // .then(({ position, delay }) => {
-  //   console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  // })
-  // .catch(({ position, delay }) => {
-  //   console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-  // });
-
-
-
-
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
 
@@ -94,14 +71,6 @@ const promise = new Promise((resolve, reject) => {
   }, delay);
  
 });
-
-
-
-  // if (shouldResolve) {
-  //   // Fulfill
-  // } else {
-  //   // Reject
-  // }
-  // // Notiflix.Notify.info(`position: ${position} delay: ${delay} `);
+ 
   return promise
 }
