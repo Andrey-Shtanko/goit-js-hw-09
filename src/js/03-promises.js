@@ -10,6 +10,7 @@ let inputAmount
 let inputFirstDelay
 let inputDelayStep
 let delay
+let position
 
 refs.btn.addEventListener(`click`, onSubmit)
 
@@ -35,14 +36,25 @@ inputDelayStep = Number(event.target.value);
 
 function onSubmit(event) {
   event.preventDefault()
-  for (let i = 1; i <= inputAmount; i += 1) {
-
-    if (i === 1) {
+  for (let i = 0; i < inputAmount; i += 1) {
+    position = i+1
+    if (i === 0) {
       delay = inputFirstDelay
-      createPromise(i, delay)
+      position = i+1
+      createPromise(position, delay).then(({ position, delay }) => {
+     Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+  })
+  .catch(({ position, delay }) => {
+     Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+  });
     } else {
       delay = inputFirstDelay + inputDelayStep*i
-      createPromise(i, delay)
+      createPromise(position, delay).then(({ position, delay }) => {
+    Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+  })
+  .catch(({ position, delay }) => {
+    Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+  });
     }
     
   }
@@ -58,17 +70,37 @@ function onSubmit(event) {
 
 
 
+// createPromise(2, 1500)
+  // .then(({ position, delay }) => {
+  //   console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+  // })
+  // .catch(({ position, delay }) => {
+  //   console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+  // });
 
 
 
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    // Fulfill
-  } else {
-    // Reject
-  }
-  Notiflix.Notify.info(`position: ${position} delay: ${delay} `);
-  
+
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (shouldResolve) {
+      resolve(`✅ Fulfilled promise ${position} in ${delay}ms`);
+    } else {
+      reject(`❌ Rejected promise ${position} in ${delay}ms`);
+    }
+  }, delay);
+});
+
+
+
+  // if (shouldResolve) {
+  //   // Fulfill
+  // } else {
+  //   // Reject
+  // }
+  // // Notiflix.Notify.info(`position: ${position} delay: ${delay} `);
+  return promise
 }
