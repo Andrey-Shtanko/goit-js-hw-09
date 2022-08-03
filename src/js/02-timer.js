@@ -2,6 +2,10 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 const refs = {
+  days: document.querySelector(`[data-days]`),
+  hours: document.querySelector(`[data-hours]`),
+  minutes: document.querySelector(`[data-minutes]`),
+  seconds: document.querySelector(`[data-seconds]`),
   dateInput: document.getElementById(`datetime-picker`),
   startButton: document.querySelector(`[data-start]`),
 };
@@ -37,8 +41,16 @@ function delta() {
   if (ms < 0) {
     clearInterval(id);
   } 
+  const convertTime = convertMs(ms)
+  const { days, hours, minutes, seconds } = convertTime
+  const padSeconds = addLeadingZero(seconds)
+  const padMinutes = addLeadingZero(minutes)
+  const padHours = addLeadingZero(hours) 
+  refs.days.textContent = `${days}` 
+  refs.hours.textContent = `${padHours}`
+  refs.minutes.textContent = `${padMinutes}`
+  refs.seconds.textContent = `${padSeconds}`
   
-  console.log(convertMs(ms));
 }
 
 function convertMs(ms) {
@@ -58,4 +70,9 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
+}
+
+function addLeadingZero(value) {
+  return String(value).padStart(2, `0`)
+  
 }
