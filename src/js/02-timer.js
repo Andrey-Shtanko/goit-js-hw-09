@@ -38,7 +38,7 @@ function onStart() {
 
 function delta() {
   ms = deadLine.getTime() - Date.now();
-  console.log(ms);
+  // console.log(ms);
   if (ms < 1001 || ms === 0 || ms <= 0) {
     refs.startButton.setAttribute(`disabled`, true);
     clearInterval(id);
