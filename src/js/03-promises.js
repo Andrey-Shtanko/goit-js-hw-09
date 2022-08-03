@@ -9,23 +9,24 @@ btn: document.querySelector(`button`),
 let inputAmount
 let inputFirstDelay
 let inputDelayStep
+let delay
 
 refs.btn.addEventListener(`click`, onSubmit)
 
 refs.amount.addEventListener(`input`, (event) => {
-inputAmount = event.target.value;
+inputAmount = Number(event.target.value);
   // console.log(inputAmount);
   return inputAmount
 })
 
 refs.firstDelay.addEventListener(`input`, (event) => {
-inputFirstDelay = event.target.value;
-  // console.log(inputFirstDelay);
+inputFirstDelay = Number(event.target.value);
+  
   return inputFirstDelay
 })
 
 refs.delayStep.addEventListener(`input`, (event) => {
-inputDelayStep = event.target.value;
+inputDelayStep = Number(event.target.value);
   // console.log(inputDelayStep);
   return inputDelayStep
 })
@@ -35,7 +36,15 @@ inputDelayStep = event.target.value;
 function onSubmit(event) {
   event.preventDefault()
   for (let i = 1; i <= inputAmount; i += 1) {
-    createPromise(i, inputDelayStep)
+
+    if (i === 1) {
+      delay = inputFirstDelay
+      createPromise(i, delay)
+    } else {
+      delay = inputFirstDelay + inputDelayStep*i
+      createPromise(i, delay)
+    }
+    
   }
 }
 
