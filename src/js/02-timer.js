@@ -37,20 +37,21 @@ function onStart() {
 }
 
 function delta() {
-  ms = deadLine.getTime() - new Date().getTime();
-  if (ms < 0) {
+  ms = deadLine.getTime() - Date.now();
+  console.log(ms);
+  if (ms < 1001 || ms === 0 || ms <= 0) {
+    refs.startButton.setAttribute(`disabled`, true);
     clearInterval(id);
-  } 
-  const convertTime = convertMs(ms)
-  const { days, hours, minutes, seconds } = convertTime
-  const padSeconds = addLeadingZero(seconds)
-  const padMinutes = addLeadingZero(minutes)
-  const padHours = addLeadingZero(hours) 
-  refs.days.textContent = `${days}` 
-  refs.hours.textContent = `${padHours}`
-  refs.minutes.textContent = `${padMinutes}`
-  refs.seconds.textContent = `${padSeconds}`
-  
+  }
+  const convertTime = convertMs(ms);
+  const { days, hours, minutes, seconds } = convertTime;
+  const padSeconds = addLeadingZero(seconds);
+  const padMinutes = addLeadingZero(minutes);
+  const padHours = addLeadingZero(hours);
+  refs.days.textContent = `${days}`;
+  refs.hours.textContent = `${padHours}`;
+  refs.minutes.textContent = `${padMinutes}`;
+  refs.seconds.textContent = `${padSeconds}`;
 }
 
 function convertMs(ms) {
@@ -73,6 +74,5 @@ function convertMs(ms) {
 }
 
 function addLeadingZero(value) {
-  return String(value).padStart(2, `0`)
-  
+  return String(value).padStart(2, `0`);
 }
