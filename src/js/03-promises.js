@@ -30,33 +30,22 @@ inputDelayStep = Number(event.target.value);
 })
 
 
-
 function onSubmit(event) {
   event.preventDefault()
-  for (let i = 0; i < inputAmount; i += 1) {
-    position = i+1
-    if (i === 0) {
-      delay = inputFirstDelay
-      position = i+1
+  delay = inputFirstDelay
+  for (let i = 1; i <= inputAmount; i += 1) {
+     
+      position = i
       createPromise(position, delay).then(({ position, delay }) => {
      Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
   })
   .catch(({ position, delay }) => {
      Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
   });
-    } else {
-      delay = inputFirstDelay + inputDelayStep*i
-      createPromise(position, delay).then(({ position, delay }) => {
-    Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  })
-  .catch(({ position, delay }) => {
-    Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-  });
-    }
-    
+     delay += inputDelayStep
+      
   }
 }
-
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
