@@ -25,6 +25,7 @@ const fp = flatpickr(`input[type = 'text']`, {
     if (deadLine.getTime() > nowDate.getTime()) {
       refs.startButton.removeAttribute(`disabled`, true);
     } else {
+      refs.startButton.setAttribute(`disabled`, true);
       Notiflix.Notify.failure('Please choose a date in the future');
     }
   },
