@@ -1,36 +1,22 @@
 import Notiflix from 'notiflix';
 
 const refs = {
-  firstDelay: document.querySelector(`input[name="delay"]`),
-delayStep: document.querySelector(`input[name="step"]`),
-  amount: document.querySelector(`input[name="amount"]`),
-btn: document.querySelector(`button`),
-}
+  form: document.querySelector(`.form`),
+  }
+
 let inputAmount
 let inputFirstDelay
 let inputDelayStep
 let delay
 let position
 
-refs.btn.addEventListener(`click`, onSubmit)
-
-refs.amount.addEventListener(`input`, (event) => {
-inputAmount = Number(event.target.value);
-    return inputAmount
-})
-
-refs.firstDelay.addEventListener(`input`, (event) => {
-inputFirstDelay = Number(event.target.value);
-    return inputFirstDelay
-})
-
-refs.delayStep.addEventListener(`input`, (event) => {
-inputDelayStep = Number(event.target.value);
-    return inputDelayStep
-})
-
+refs.form.addEventListener(`submit`, onSubmit)
 
 function onSubmit(event) {
+
+  inputAmount = Number(event.target[2].value);
+  inputFirstDelay = Number(event.target[0].value);
+  inputDelayStep = Number(event.target[1].value);
   event.preventDefault()
   delay = inputFirstDelay
   for (let i = 1; i <= inputAmount; i += 1) {
